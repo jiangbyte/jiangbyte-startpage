@@ -8,7 +8,8 @@ export default function Footer() {
   return (
     <footer className="site-footer">
       <div className="site-footer__inner">
-        <p className="site-footer__copy">
+        {/* 英文行禁止浏览器翻译，避免与译文叠成重影 */}
+        <p className="site-footer__copy notranslate" translate="no">
           <span>©</span>
           <span className="site-footer__em">{yearLabel}</span>
           <span className="site-footer__mark" aria-hidden>
@@ -36,7 +37,7 @@ export default function Footer() {
           </a>
         </p>
 
-        <p className="site-footer__built">
+        <p className="site-footer__built notranslate" translate="no">
           <span>Built with</span>
           <a href="https://vite.dev" target="_blank" rel="noopener noreferrer" className="site-footer__link">
             Vite
