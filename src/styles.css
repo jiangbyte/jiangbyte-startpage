@@ -70,7 +70,8 @@ input {
   min-height: 100vh;
   max-width: none;
   margin: 0;
-  padding: 1rem 1.25rem 2.5rem;
+  /* 顶部留给 fixed 顶栏，避免首屏内容被遮挡 */
+  padding: 4.25rem 1.25rem 2.5rem;
 }
 
 .site-footer {
@@ -191,13 +192,22 @@ input {
 }
 
 .topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 30;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 0.5rem 0 1rem;
+  padding: 0.65rem 1.25rem;
   color: #fff;
   text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.28);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(14px) saturate(1.15);
+  -webkit-backdrop-filter: blur(14px) saturate(1.15);
   animation: rise-in 0.45s ease-out both;
 }
 
@@ -547,11 +557,11 @@ input {
   }
 
   .page__shell {
-    padding: 0.65rem 0.85rem 2rem;
+    padding: 3.5rem 0.85rem 2rem;
   }
 
   .topbar {
-    padding: 0.15rem 0 0.5rem;
+    padding: 0.55rem 0.85rem;
   }
 
   .topbar__menu-btn {
