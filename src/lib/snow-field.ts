@@ -29,6 +29,7 @@ const BOTTOM_FADE = 100
 const random = (min: number, max: number) => min + Math.random() * (max - min)
 
 export class SnowField {
+  private readonly canvas: HTMLCanvasElement
   private readonly ctx: CanvasRenderingContext2D
   private sprites: HTMLCanvasElement[] = []
   private flakes: Flake[] = []
@@ -39,7 +40,8 @@ export class SnowField {
   private lastTime = 0
   private clock = 0
 
-  constructor(private readonly canvas: HTMLCanvasElement) {
+  constructor(canvas: HTMLCanvasElement) {
+    this.canvas = canvas
     const ctx = canvas.getContext('2d')
     if (!ctx) throw new Error('Canvas 2D context unavailable')
     this.ctx = ctx
