@@ -2,7 +2,7 @@
 
 个人书签导航起始页（Vite + React + TypeScript）。无数据库；书签写在代码里，**url 必填**，title / description 可选覆盖。
 
-在线地址：https://jiangbyte.github.io/startpage/
+在线地址：https://start.jiangbyte.cn
 
 ## 快速开始
 
@@ -17,15 +17,18 @@ npm run dev
 npm run build
 ```
 
-产物在 `dist/`，可用任意静态服务器托管（如 nginx）。
+产物在 `dist/`。
 
 ## 部署
 
-推送到 `main` 后，GitHub Actions 会自动构建并发布到 GitHub Pages。
+```bash
+npm run deploy
 
-- Workflow：[`.github/workflows/gh-pages.yml`](.github/workflows/gh-pages.yml)
-- 仓库 Pages 设置里需将 Source 选为 **GitHub Actions**
-- 也可在 Actions 页手动触发 `workflow_dispatch`
+# 或显式指定
+DEPLOY_SSH_HOST=myserver DEPLOY_REMOTE_DIR=/opt/nginx-gateway/sites/start npm run deploy
+```
+
+默认构建并 rsync 到 `/opt/nginx-gateway/sites/start`（`start.jiangbyte.cn`）。密钥与服务器地址写在本机 `~/.ssh/config`，不要提交进仓库。
 
 ## 添加书签
 
@@ -41,7 +44,7 @@ npm run build
 
     // 有手写则覆盖自动结果
     {
-      url: 'https://jiangbyte.github.io',
+      url: 'https://jiangbyte.cn',
       title: '博客',
       description: '个人站点',
     },
