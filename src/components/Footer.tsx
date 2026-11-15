@@ -1,4 +1,5 @@
 import { siteMeta } from '../data/site'
+import Snowflake from './Snowflake'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -12,9 +13,7 @@ export default function Footer() {
         <p className="site-footer__copy notranslate" translate="no">
           <span>©</span>
           <span className="site-footer__em">{yearLabel}</span>
-          <span className="site-footer__mark" aria-hidden>
-            ✦
-          </span>
+          <Snowflake className="site-footer__mark" />
           <span className="site-footer__em">{siteMeta.name}</span>
           <span>. All rights reserved.</span>
         </p>

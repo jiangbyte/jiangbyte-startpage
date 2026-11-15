@@ -1,0 +1,41 @@
+/**
+ * 六角枝晶雪花几何（对齐博客 Soft Ice / sakura petal 路径）。
+ * 供页脚 SVG、飘落 canvas 精灵共用。
+ */
+
+export const SNOWFLAKE_VIEWBOX = { width: 64, height: 64 } as const
+
+/** 六角枝晶实心轮廓 */
+export const SNOWFLAKE_PATH =
+  'M32.85 27.4L33.05 22L36.4 20.2L34.3 19.5L33.15 16.5L37.2 15L34.5 14.2L33.25 11.2L36.6 9.6L34.2 8.9L33.2 6.4L35.8 4.6L33.4 5L32 2.4L28.2 4.6L30.8 6.4L29.8 8.9L27.4 9.6L30.75 11.2L29.5 14.2L26.8 15L30.85 16.5L29.7 19.5L27.6 20.2L30.95 22L31.15 27.4ZM36.41 30.44L41.19 27.91L44.42 29.91L43.98 27.74L46 25.25L49.32 28L48.67 25.27L50.64 22.68L53.7 24.78L53.11 22.36L54.77 20.24L57.63 21.59L56.08 19.71L57.63 17.2L53.83 15.01L53.57 18.16L50.91 18.54L49.1 16.82L49.39 20.52L46.17 20.93L44.12 19L44.85 23.25L41.68 23.76L40.02 22.29L40.14 26.09L35.56 28.96ZM35.56 35.04L40.14 37.91L40.02 41.71L41.68 40.24L44.85 40.75L44.12 45L46.17 43.07L49.39 43.48L49.1 47.18L50.91 45.46L53.57 45.84L53.83 48.99L54.68 46.71L57.63 46.8L57.63 42.41L54.77 43.76L53.11 41.64L53.7 39.22L50.64 41.32L48.67 38.73L49.32 36L46 38.75L43.98 36.26L44.42 34.09L41.19 36.09L36.41 33.56ZM31.15 36.6L30.95 42L27.6 43.8L29.7 44.5L30.85 47.5L26.8 49L29.5 49.8L30.75 52.8L27.4 54.4L29.8 55.1L30.8 57.6L28.2 59.4L30.6 59L32 61.6L35.8 59.4L33.2 57.6L34.2 55.1L36.6 54.4L33.25 52.8L34.5 49.8L37.2 49L33.15 47.5L34.3 44.5L36.4 43.8L33.05 42L32.85 36.6ZM27.59 33.56L22.81 36.09L19.58 34.09L20.02 36.26L18 38.75L14.68 36L15.33 38.73L13.36 41.32L10.3 39.22L10.89 41.64L9.23 43.76L6.37 42.41L7.92 44.29L6.37 46.8L10.17 48.99L10.43 45.84L13.09 45.46L14.9 47.18L14.61 43.48L17.83 43.07L19.88 45L19.15 40.75L22.32 40.24L23.98 41.71L23.86 37.91L28.44 35.04ZM28.44 28.96L23.86 26.09L23.98 22.29L22.32 23.76L19.15 23.25L19.88 19L17.83 20.93L14.61 20.52L14.9 16.82L13.09 18.54L10.43 18.16L10.17 15.01L9.32 17.29L6.37 17.2L6.37 21.59L9.23 20.24L10.89 22.36L10.3 24.78L13.36 22.68L15.33 25.27L14.68 28L18 25.25L20.02 27.74L19.58 29.91L22.81 27.91L27.59 30.44ZM32 27L36.33 29.5L36.33 34.5L32 37L27.67 34.5L27.67 29.5Z'
+
+/** 冰蓝渐变色对：尖端 → 外缘 */
+export const SNOWFLAKE_COLORS: ReadonlyArray<readonly [tip: string, base: string]> = [
+  ['#ffffff', '#b8d8f2'],
+  ['#f4f9fd', '#8ec4ec'],
+  ['#e8f3fc', '#6ba8e0'],
+  ['#ffffff', '#9ec8ef'],
+]
+
+/**
+ * 预渲染各色雪花精灵，运行时只 drawImage。
+ * @param scale 设备像素下 viewBox 单位边长
+ */
+export function createSnowflakeSprites(scale: number): HTMLCanvasElement[] {
+  const path = new Path2D(SNOWFLAKE_PATH)
+  return SNOWFLAKE_COLORS.map(([tip, base]) => {
+    const canvas = document.createElement('canvas')
+    canvas.width = Math.ceil(SNOWFLAKE_VIEWBOX.width * scale)
+    canvas.height = Math.ceil(SNOWFLAKE_VIEWBOX.height * scale)
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return canvas
+    ctx.scale(scale, scale)
+    // 1. 径向渐变：中心偏亮，外缘冰蓝
+    const gradient = ctx.createRadialGradient(32, 32, 2, 32, 32, 30)
+    gradient.addColorStop(0, tip)
+    gradient.addColorStop(1, base)
+    ctx.fillStyle = gradient
+    ctx.fill(path)
+    return canvas
+  })
+}

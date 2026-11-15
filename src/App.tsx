@@ -3,6 +3,7 @@ import Header from './components/Header'
 import SearchBar from './components/SearchBar'
 import CategorySection from './components/CategorySection'
 import Footer from './components/Footer'
+import Snowfall from './components/Snowfall'
 import { categories, searchEngines } from './data/bookmarks'
 
 export default function App() {
@@ -12,6 +13,7 @@ export default function App() {
   return (
     <div className="page">
       <div className="page__shade" aria-hidden />
+      <Snowfall />
 
       <div className="page__shell">
         <Header
