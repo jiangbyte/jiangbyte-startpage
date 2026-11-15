@@ -400,6 +400,9 @@ input {
 
 /* —— Hero + search —— */
 .hero {
+  position: relative;
+  z-index: 4;
+  overflow: visible;
   text-align: center;
   color: hsl(var(--foreground));
   margin-bottom: 1.5rem;
@@ -428,11 +431,17 @@ input {
   width: min(42rem, 100%);
   margin: 0 auto;
   z-index: 5;
+  overflow: visible;
+}
+
+.search--open {
+  z-index: 25;
 }
 
 .search__form {
   display: flex;
   align-items: center;
+  overflow: visible;
   background: hsl(var(--card) / 0.92);
   border: 1px solid hsl(var(--border));
   border-radius: 9999px;
@@ -441,18 +450,14 @@ input {
   -webkit-backdrop-filter: blur(10px);
 }
 
-.search__engine {
-  position: relative;
-  flex-shrink: 0;
-  margin-left: 0.3rem;
-}
-
 .search__engine-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
+  flex-shrink: 0;
   max-width: 8.5rem;
   height: 2.35rem;
+  margin-left: 0.3rem;
   padding: 0 0.7rem 0 0.85rem;
   border: 0;
   border-radius: 9999px;
@@ -465,7 +470,7 @@ input {
 }
 
 .search__engine-btn:hover,
-.search__engine--open .search__engine-btn {
+.search__engine-btn--open {
   background: hsl(var(--accent));
 }
 
@@ -481,21 +486,23 @@ input {
   transition: transform 0.15s ease;
 }
 
-.search__engine--open .search__engine-caret {
+.search__engine-btn--open .search__engine-caret {
   transform: rotate(180deg);
 }
 
+/* 相对 .search 左对齐引擎按钮，不在 form 内以免被裁切 */
 .search__engine-menu {
   position: absolute;
-  top: calc(100% + 0.45rem);
-  left: 0;
-  z-index: 20;
-  min-width: 10.5rem;
+  top: calc(100% + 0.4rem);
+  left: 0.3rem;
+  z-index: 30;
+  min-width: 9.5rem;
   max-height: min(18rem, 50vh);
   margin: 0;
   padding: 0.35rem;
   list-style: none;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   border: 1px solid hsl(var(--border));
   border-radius: var(--radius);
   background: hsl(var(--card));

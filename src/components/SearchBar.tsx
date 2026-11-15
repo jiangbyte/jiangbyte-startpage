@@ -43,56 +43,29 @@ export default function SearchBar({ engines, activeId, onEngineChange }: SearchB
       <h1 className="hero__title">从这里开始</h1>
       <p className="hero__quote">Charlie 的个人起始页</p>
 
-      <div className="search" ref={rootRef}>
+      {/* 菜单放在 form 外，避免圆角容器裁切下拉 */}
+      <div className={open ? 'search search--open' : 'search'} ref={rootRef}>
         <form className="search__form" onSubmit={handleSubmit}>
-          <div className={open ? 'search__engine search__engine--open' : 'search__engine'}>
-            <button
-              type="button"
-              className="search__engine-btn"
-              aria-haspopup="listbox"
-              aria-expanded={open}
-              aria-controls={listId}
-              onClick={() => setOpen((v) => !v)}
-            >
-              <span className="search__engine-label">{active?.name ?? '搜索引擎'}</span>
-              <svg className="search__engine-caret" viewBox="0 0 20 20" width="14" height="14" aria-hidden>
-                <path
-                  d="M5 7.5L10 12.5L15 7.5"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
-
-            {open ? (
-              <ul id={listId} className="search__engine-menu" role="listbox" aria-label="搜索引擎">
-                {engines.map((engine) => {
-                  const selected = engine.id === active?.id
-                  return (
-                    <li key={engine.id} role="option" aria-selected={selected}>
-                      <button
-                        type="button"
-                        className={
-                          selected
-                            ? 'search__engine-option search__engine-option--active'
-                            : 'search__engine-option'
-                        }
-                        onClick={() => {
-                          onEngineChange(engine.id)
-                          setOpen(false)
-                        }}
-                      >
-                        {engine.name}
-                      </button>
-                    </li>
-                  )
-                })}
-              </ul>
-            ) : null}
-          </div>
+          <button
+            type="button"
+            className={open ? 'search__engine-btn search__engine-btn--open' : 'search__engine-btn'}
+            aria-haspopup="listbox"
+            aria-expanded={open}
+            aria-controls={listId}
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span className="search__engine-label">{active?.name ?? '搜索引擎'}</span>
+            <svg className="search__engine-caret" viewBox="0 0 20 20" width="14" height="14" aria-hidden>
+              <path
+                d="M5 7.5L10 12.5L15 7.5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
 
           <input
             className="search__input"
@@ -115,6 +88,32 @@ export default function SearchBar({ engines, activeId, onEngineChange }: SearchB
             </svg>
           </button>
         </form>
+
+        {open ? (
+          <ul id={listId} className="search__engine-menu" role="listbox" aria-label="搜索引擎">
+            {engines.map((engine) => {
+              const selected = engine.id === active?.id
+              return (
+                <li key={engine.id} role="option" aria-selected={selected}>
+                  <button
+                    type="button"
+                    className={
+                      selected
+                        ? 'search__engine-option search__engine-option--active'
+                        : 'search__engine-option'
+                    }
+                    onClick={() => {
+                      onEngineChange(engine.id)
+                      setOpen(false)
+                    }}
+                  >
+                    {engine.name}
+                  </button>
+                </li>
+              )
+            })}
+          </ul>
+        ) : null}
       </div>
     </section>
   )
