@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import Header from './components/Header'
 import SearchBar from './components/SearchBar'
 import CategorySection from './components/CategorySection'
+import Footer from './components/Footer'
 import { categories, searchEngines } from './data/bookmarks'
 
 const BG_API = 'https://api.yppp.net/api.php'
@@ -32,6 +33,7 @@ export default function App() {
             <CategorySection key={category.id} category={category} />
           ))}
         </div>
+        <Footer />
       </div>
     </div>
   )
