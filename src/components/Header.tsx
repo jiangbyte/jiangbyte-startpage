@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { Category } from '../data/bookmarks'
+import { siteMeta } from '../data/site'
 
 const WEEKDAYS = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
 
@@ -47,30 +48,36 @@ export default function Header({
   return (
     <>
       <header className="topbar">
-        <button
-          type="button"
-          className="topbar__menu-btn"
-          aria-label="打开菜单"
-          aria-expanded={menuOpen}
-          onClick={onMenuToggle}
-        >
-          <span />
-          <span />
-          <span />
-        </button>
+        <div className="topbar__capsule">
+          <button
+            type="button"
+            className="topbar__menu-btn"
+            aria-label="打开菜单"
+            aria-expanded={menuOpen}
+            onClick={onMenuToggle}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
 
-        <nav className="topbar__nav topbar__nav--desktop" aria-label="站点导航">
-          <a href="#search">主页</a>
-          {categories.map((c) => (
-            <a key={c.id} href={`#${c.id}`}>
-              {c.title}
-            </a>
-          ))}
-        </nav>
+          <a href="#search" className="topbar__brand">
+            {siteMeta.title}
+          </a>
 
-        <div className="topbar__clock topbar__clock--desktop">
-          <span className="topbar__date">{dateText}</span>
-          <span className="topbar__time">{timeText}</span>
+          <nav className="topbar__nav topbar__nav--desktop" aria-label="站点导航">
+            <a href="#search">主页</a>
+            {categories.map((c) => (
+              <a key={c.id} href={`#${c.id}`}>
+                {c.title}
+              </a>
+            ))}
+          </nav>
+
+          <div className="topbar__clock topbar__clock--desktop">
+            <span className="topbar__date">{dateText}</span>
+            <span className="topbar__time">{timeText}</span>
+          </div>
         </div>
       </header>
 

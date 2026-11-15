@@ -21,8 +21,8 @@ export default function SearchBar({ engines, activeId, onEngineChange }: SearchB
 
   return (
     <section className="hero" id="search">
-      <h1 className="hero__title">上网，从这里开始！</h1>
-      <p className="hero__quote">个人导航起始页 · 填链接即可</p>
+      <h1 className="hero__title">从这里开始</h1>
+      <p className="hero__quote">Charlie 的个人起始页</p>
 
       <div className="search">
         <div className="search__tabs" role="tablist" aria-label="搜索引擎">
@@ -47,7 +47,7 @@ export default function SearchBar({ engines, activeId, onEngineChange }: SearchB
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="( ゜- ゜)つロ 干杯~"
+            placeholder="搜索…"
             aria-label="搜索"
           />
           <button className="search__submit" type="submit" aria-label="搜索">
