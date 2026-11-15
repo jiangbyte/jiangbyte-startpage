@@ -87,12 +87,36 @@ input {
   position: relative;
   min-height: 100vh;
   overflow-x: hidden;
-  background: linear-gradient(to top, var(--gradient-bg-end) 0, var(--gradient-bg-start) 48rem) no-repeat bottom;
   background-color: var(--gradient-bg-start);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .page__shade {
-  display: none;
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  /* Soft Ice 浅色洗：保留封面可见，保证文字与卡片可读 */
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--gradient-bg-start) 72%, transparent) 0%,
+      color-mix(in oklab, var(--gradient-bg-end) 78%, transparent) 100%
+    );
+}
+
+@media (prefers-color-scheme: dark) {
+  .page__shade {
+    background:
+      linear-gradient(
+        180deg,
+        color-mix(in oklab, var(--gradient-bg-start) 82%, transparent) 0%,
+        color-mix(in oklab, var(--gradient-bg-end) 88%, transparent) 100%
+      );
+  }
 }
 
 .site-snowfall {
@@ -654,6 +678,10 @@ input {
 
 /* —— 移动端 —— */
 @media (max-width: 768px) {
+  .page {
+    background-attachment: scroll;
+  }
+
   .page__shell {
     padding: 4.25rem 0.85rem 2rem;
   }

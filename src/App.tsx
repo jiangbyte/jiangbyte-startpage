@@ -11,7 +11,10 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
 
   return (
-    <div className="page">
+    <div
+      className="page"
+      style={{ backgroundImage: 'url("/img/cover/37.webp")' }}
+    >
       <div className="page__shade" aria-hidden />
       <Snowfall />
 
